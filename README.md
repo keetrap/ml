@@ -1,1 +1,1 @@
-# MLops (Machine learning Operations)s
+# MLops (Machine learning Operations)

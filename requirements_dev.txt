@@ -1,0 +1,17 @@
+pandas
+scikit-learn
+numpy
+seaborn 
+flask
+mlflow
+dvc
+ipykernel
+xgboost
+pytest
+tox
+platformdirs==3.9.1
+black==22.8.0
+flake8==5.0.4
+mypy==0.971
+
+# -e .
