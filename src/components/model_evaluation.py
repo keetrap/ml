@@ -8,17 +8,17 @@ from src.utils.utils import load_object
 from urllib.parse import urlparse
 from sklearn.metrics import mean_squared_error,mean_absolute_error,r2_score #type: ignore
 from src.logger.logger import logging
-from src.exception. exception import CustomeException
+from src.exception.exception import CustomeException
 
 class ModelEvaluation:
     def __init__(self):
-        logging.info("evaluation started")
+        logging.info("Evaluation Started")
 
     def eval_metrics(self,actual,pred):
         rmse = np.sqrt(mean_squared_error(actual, pred))
         mae = mean_absolute_error(actual, pred)
         r2 = r2_score(actual, pred)
-        logging.info("evaluation metrics captured")
+        logging.info("Evaluation Metrics Captured")
         return rmse, mae, r2
 
     def initiate_model_evaluation(self,train_array,test_array):
@@ -30,13 +30,11 @@ class ModelEvaluation:
 
              #mlflow.set_registry_uri("")
              
-             logging.info("model has register")
+             logging.info("Model Registred Successfully")
 
              tracking_url_type_store=urlparse(mlflow.get_tracking_uri()).scheme
 
              print(tracking_url_type_store)
-
-
 
              with mlflow.start_run():
 
@@ -48,17 +46,11 @@ class ModelEvaluation:
                 mlflow.log_metric("r2", r2)
                 mlflow.log_metric("mae", mae)
 
-                 # Model registry does not work with file store
                 if tracking_url_type_store != "file":
-
-                    # Register the model
-                    # There are other ways to use the Model Registry, which depends on the use case,
-                    # please refer to the doc for more information:
                     # https://mlflow.org/docs/latest/model-registry.html#api-workflow
                     mlflow.sklearn.log_model(model, "model", registered_model_name="ml_model")
                 else:
                     mlflow.sklearn.log_model(model, "model")
-
 
         except Exception as e:
             raise CustomeException(e,sys)
