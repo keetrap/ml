@@ -47,7 +47,6 @@ class ModelEvaluation:
                 mlflow.log_metric("mae", mae)
 
                 if tracking_url_type_store != "file":
-                    # https://mlflow.org/docs/latest/model-registry.html#api-workflow
                     mlflow.sklearn.log_model(model, "model", registered_model_name="ml_model")
                 else:
                     mlflow.sklearn.log_model(model, "model")
